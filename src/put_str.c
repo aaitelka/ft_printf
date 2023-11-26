@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   put_str.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 15:26:22 by aaitelka          #+#    #+#             */
-/*   Updated: 2023/11/17 12:13:27 by aaitelka         ###   ########.fr       */
+/*   Updated: 2023/11/26 21:58:22 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libftprintf.h"
 
-void	put_str(char *s, int fd)
+int	put_str(char *s)
 {
-	if (!s || fd < 0)
-		return ;
+	int	counter;
+
+	counter = 0;
+	if (!s)
+		return (put_str("(null)"));
 	while (*s)
-		put_char(*s++, fd);
+		counter += put_char(*s++);
+	return (counter);
 }

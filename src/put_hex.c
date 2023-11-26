@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   puthexa.c                                          :+:      :+:    :+:   */
+/*   put_hex.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 15:02:42 by aaitelka          #+#    #+#             */
-/*   Updated: 2023/11/26 15:05:25 by aaitelka         ###   ########.fr       */
+/*   Updated: 2023/11/26 22:00:03 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libftprintf.h"
 
-void put_hex(unsigned long decimal, int base, char placeholder)
+int	put_hex(unsigned long decimal, int base, char placeholder)
 {
-    unsigned long remainder;
+	int				counter;
+	unsigned long	remainder;
 
-    if (decimal)
-    {
-        remainder = decimal % base;
-        decimal /= base;
-        put_hex(decimal, base, placeholder);
-        if (remainder > 9 && placeholder == 'x')
-            put_char(remainder + 87, 1);
-        else if (remainder > 9 && placeholder == 'X')
-            put_char(remainder + 55, 1);
-        else
-            put_nbr(remainder, 1);
-    }
+	counter = 0;
+	remainder = decimal % base;
+	if (decimal / base)
+		counter += put_hex(decimal / base, base, placeholder);
+	if (remainder < 10)
+		counter += put_nbr((long) remainder);
+	else if ((long) remainder > 9 && placeholder == 'x')
+		counter += put_char(remainder + 87);
+	else if ((long) remainder > 9 && placeholder == 'X')
+		counter += put_char(remainder + 55);
+	return (counter);
 }

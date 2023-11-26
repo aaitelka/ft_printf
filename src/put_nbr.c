@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   put_nbr.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 15:42:45 by aaitelka          #+#    #+#             */
-/*   Updated: 2023/11/16 15:43:17 by aaitelka         ###   ########.fr       */
+/*   Updated: 2023/11/26 21:59:00 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libftprintf.h"
 
-void	put_nbr(long nbr, int fd)
+int	put_nbr(long nbr)
 {
-    if (nbr < 0)
-    {
-        put_char('-', fd);
-        put_nbr(-nbr, fd);
-    }
-    else if (nbr > 9)
-    {
-        put_nbr(nbr / 10, fd);
-        put_nbr(nbr % 10, fd);
-    }
-    else
-        put_char(nbr + '0', fd);
+	int	counter;
+
+	counter = 0;
+	if (nbr < 0)
+	{
+		counter += put_char('-');
+		counter += put_nbr(-nbr);
+	}
+	else if (nbr > 9)
+	{
+		counter += put_nbr(nbr / 10);
+		counter += put_nbr(nbr % 10);
+	}
+	else
+		counter += put_char(nbr + '0');
+	return (counter);
 }
