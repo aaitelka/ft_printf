@@ -10,44 +10,39 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
-#include "ft_printf.h"
+#include "include/libftprintf.h"
 
-static int is_format(const char *str, char *f)
+static void check_format(va_list ap, const char *format)
 {
-    return (ft_strncmp(str, f, 2) == 0);
+    while (*format) {
+        if (*format == '%')
+        {
+            format++;
+            if (*format == '%' && format++)
+                put_char('%', 1);
+            else if (*format == 'c' && format++)
+                put_char(va_arg(ap, int), 1);
+            else if (*format == 's' && format++)
+                put_str((char *) va_arg(ap, char*), 1);
+            else if ((*format == 'd' || *format == 'i')  && format++)
+                put_nbr((int) va_arg(ap, int), 1);
+            else if (*format == 'u' && format++)
+                put_nbr( va_arg(ap, unsigned int), 1);
+            else if ((*format == 'x' || *format == 'X'))
+                put_hex((long)va_arg(ap, long), 16, *format++);
+            else if (*format == 'p' && format++) {
+                put_str("0x", 1);
+                put_hex((unsigned long) va_arg(ap, long), 16, 'x');
+            }
+        } else
+            put_char(*format++, 1);
+    }
 }
 
-int ft_printf(const char *format, ...)
-{
+int ft_printf(const char *format, ...) {
     va_list args;
     va_start(args, format);
-    while (*format)
-    {
-        if (is_format(format, "%c") && format++)
-        {
-            ft_putchar_fd(va_arg(args, int), 1);
-        }
-        else if (is_format(format, "%s") && format++)
-        {
-            ft_putstr_fd((char*)va_arg(args, char*), 1);
-        }
-        else if (is_format(format, "%p") && format++)
-        {
-            ft_putnbr_fd((int)va_arg(args, int), 1);
-        }
-        else if ((is_format(format, "%d") || (is_format(format,  "%i"))) && format++)
-        {
-            ft_putnbr_fd((int)va_arg(args, int), 1);
-        }
-        else if(is_format(format, "%%"))
-        {
-            ft_putchar_fd(va_arg(args, int), 1);
-        }
-        else
-            ft_putchar_fd(*format, 1);
-        format++;
-    }
+    check_format(args, format);
     va_end(args);
     return (0);
 }

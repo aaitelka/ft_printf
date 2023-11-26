@@ -11,17 +11,17 @@
 # **************************************************************************** #
 
 NAME	:=	libftprintf.a
-HEAD	:=	ft_printf.h
+HEAD	:=	include/libftprintf.h
 CC		:=	cc
 CFLAGS	:=	-Wall -Wextra -Werror
 AR		:=	ar rcs
 RM		:=	rm -f
 
-SRCS	:=	ft_printf.c
+SRCS	:=	ft_printf.c src/put_nbr.c src/put_char.c src/put_str.c src/put_hex.c
 
 OBJS	:=	$(SRCS:%c=%o)
 
-all		:	$(NAME)
+all		:	 $(NAME)
 
 %o		:	%c $(HEAD)
 			$(CC) $(CFLAGS) -c -o $@ $<

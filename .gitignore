@@ -1,5 +1,6 @@
 *.a
 main.c
+main
 *.o
 *.out
 *.txt
