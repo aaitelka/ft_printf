@@ -14,18 +14,18 @@
 
 int	put_hex(unsigned long decimal, char placeholder)
 {
-	int				counter;
-	unsigned long	remainder;
+	int	counter;
+	int	remainder;
 
 	counter = 0;
 	remainder = decimal % 16;
 	if (decimal / 16)
 		counter += put_hex(decimal / 16, placeholder);
 	if (remainder < 10)
-		counter += put_nbr((long) remainder);
-	else if ((long) remainder > 9 && placeholder == 'x')
+		counter += put_nbr(remainder);
+	else if (remainder > 9 && placeholder == 'x')
 		counter += put_char(remainder + 87);
-	else if ((long) remainder > 9 && placeholder == 'X')
+	else if (remainder > 9 && placeholder == 'X')
 		counter += put_char(remainder + 55);
 	return (counter);
 }

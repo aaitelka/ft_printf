@@ -18,7 +18,7 @@ static int	check_hex(va_list ap, char placeholder)
 
 	counter = 0;
 	counter += put_str("0x");
-	counter += put_hex((unsigned long) va_arg(ap, long), placeholder);
+	counter += put_hex(va_arg(ap, unsigned long), placeholder);
 	return (counter);
 }
 
@@ -34,9 +34,9 @@ static int	check_format(va_list ap, const char *format, int counter)
 			else if (*format == 'c' && format++)
 				counter += put_char(va_arg(ap, int));
 			else if (*format == 's' && format++)
-				counter += put_str((char *) va_arg(ap, char *));
+				counter += put_str(va_arg(ap, char *));
 			else if ((*format == 'd' || *format == 'i') && format++)
-				counter += put_nbr((int) va_arg(ap, int));
+				counter += put_nbr(va_arg(ap, int));
 			else if (*format == 'u' && format++)
 				counter += put_nbr(va_arg(ap, unsigned int));
 			else if (*format == 'x' || *format == 'X')
