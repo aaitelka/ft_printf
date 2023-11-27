@@ -24,5 +24,5 @@ int		put_nbr(long nbr);
 
 int		put_char(char c);
 
-int		put_hex(unsigned long decimal, int base, char c);
+int		put_hex(unsigned long decimal, char placeholder);
 #endif

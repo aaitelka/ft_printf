@@ -12,15 +12,15 @@
 
 #include "../include/libftprintf.h"
 
-int	put_hex(unsigned long decimal, int base, char placeholder)
+int	put_hex(unsigned long decimal, char placeholder)
 {
 	int				counter;
 	unsigned long	remainder;
 
 	counter = 0;
-	remainder = decimal % base;
-	if (decimal / base)
-		counter += put_hex(decimal / base, base, placeholder);
+	remainder = decimal % 16;
+	if (decimal / 16)
+		counter += put_hex(decimal / 16, placeholder);
 	if (remainder < 10)
 		counter += put_nbr((long) remainder);
 	else if ((long) remainder > 9 && placeholder == 'x')
